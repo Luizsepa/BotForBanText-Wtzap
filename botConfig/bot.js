@@ -11,8 +11,11 @@ const client = new Client({
 });
 
 client.on("qr", (qr) => {
+  console.log(
+    "Escaneie o QR Code abaixo com seu WhatsApp: (ou gere o codigo)",
+    qr,
+  );
   qrcode.generate(qr, { small: true });
-  console.log("Escaneie o QR Code acima com seu WhatsApp:");
 });
 
 client.on("ready", () => {

@@ -2,7 +2,13 @@ import fs from "fs/promises";
 import { json } from "stream/consumers";
 import dayjs from "dayjs";
 
+import { fileURLToPath } from "url";
+
 import { dicordUrls, listNumsPermission } from "../config.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const dbPath = path.resolve(__dirname, "../db.json");
 
 const mensagemDiscord = {
   content: null,
@@ -34,10 +40,7 @@ const mensagemDiscord = {
 };
 
 export async function postWarningByNum(num) {
-  const res = await fs.readFile(
-    "C:/code/BotAssobio/botConfig/db.json",
-    "utf-8",
-  );
+  const res = await fs.readFile(dbPath, "utf-8");
 
   let ObjDb = JSON.parse(res);
 
@@ -105,18 +108,12 @@ export async function postWarningByNum(num) {
         }),
       });
 
-      await fs.writeFile(
-        "C:/code/BotAssobio/botConfig/db.json",
-        JSON.stringify(ObjDb, null, 2),
-      );
+      await fs.writeFile(dbPath, JSON.stringify(ObjDb, null, 2));
 
       return { message: "Membro banido" };
     }
 
-    await fs.writeFile(
-      "C:/code/BotAssobio/botConfig/db.json",
-      JSON.stringify(ObjDb, null, 2),
-    );
+    await fs.writeFile(dbPath, JSON.stringify(ObjDb, null, 2));
 
     // console.log(exist);
 
@@ -130,10 +127,7 @@ export async function postWarningByNum(num) {
 
   ObjDb.warnings.push(user);
 
-  await fs.writeFile(
-    "C:/code/BotAssobio/botConfig/db.json",
-    JSON.stringify(ObjDb, null, 2),
-  );
+  await fs.writeFile(dbPath, JSON.stringify(ObjDb, null, 2));
 
   // console.log(res, ObjDb);
 

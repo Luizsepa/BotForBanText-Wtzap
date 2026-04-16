@@ -2,7 +2,7 @@ import fs from "fs/promises";
 import { json } from "stream/consumers";
 import dayjs from "dayjs";
 
-import { dicordUrls } from "../config.js";
+import { dicordUrls, listNumsPermission } from "../config.js";
 
 const mensagemDiscord = {
   content: null,
@@ -32,7 +32,6 @@ const mensagemDiscord = {
   ],
   attachments: [],
 };
-const listNumsPermission = [];
 
 export async function postWarningByNum(num) {
   const res = await fs.readFile(
@@ -43,9 +42,9 @@ export async function postWarningByNum(num) {
   let ObjDb = JSON.parse(res);
 
   const OnList = listNumsPermission.find((obj) => obj.num == num);
-  // if (OnList) {
-  //   return { message: "OnList" };
-  // }
+  if (OnList) {
+    return { message: "OnList" };
+  }
 
   const [ban] = ObjDb.bans.filter((obj) => obj.num == num);
 

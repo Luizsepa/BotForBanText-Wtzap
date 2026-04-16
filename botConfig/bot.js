@@ -33,6 +33,18 @@ client.on("message", async (msg) => {
       const authorId = msg.author || msg.from;
 
       try {
+        await msg.delete(true);
+        console.log(
+          `Mensagem de ${contact.pushname} deletada por violar as regras.`,
+        );
+      } catch (deleteErr) {
+        console.error(
+          "Não foi possível apagar a mensagem. O bot é admin?",
+          deleteErr,
+        );
+      }
+
+      try {
         const contact = await msg.getContact();
 
         const res = await postWarningByNum(contact.number.toString());

@@ -4,3 +4,4 @@ export const dicordUrls = {
   urlWebhook: "",
   urlImageFooter: "",
 };
+export const listNumsPermission = [];

@@ -32,7 +32,7 @@ export async function postWarningByNum(contact) {
 
   if (exist) {
     exist.warnings += 1;
-    console.log("Exist:", exist);
+    // console.log("Exist:", exist);
 
     const warningsForDiscord = {
       name: exist.name,
@@ -75,7 +75,10 @@ export async function postWarningByNum(contact) {
     name: contact.name,
     num: contact.number,
     warnings: 1,
+    date: dayjs(new Date()).format("DD/MM/YYYY - HH:mm"),
   };
+
+  await discordWarnings(user);
 
   ObjDb.warnings.push(user);
 
